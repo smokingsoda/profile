@@ -315,6 +315,47 @@ window.addEventListener('hashchange', () => {
     navigateTo(page, scroll);
 });
 
+// Mobile optimizations
+document.addEventListener('DOMContentLoaded', () => {
+    // Prevent double-tap zoom on buttons (iOS)
+    const buttons = document.querySelectorAll('button, .track, .poem-image img');
+    buttons.forEach(button => {
+        button.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            button.click();
+        }, { passive: false });
+    });
+
+    // Improve scroll performance on mobile
+    if ('ontouchstart' in window) {
+        document.body.style.webkitOverflowScrolling = 'touch';
+    }
+
+    // Handle dropdown on mobile (click instead of hover)
+    if (window.innerWidth <= 768) {
+        const dropdown = document.querySelector('.nav-dropdown');
+        if (dropdown) {
+            dropdown.addEventListener('click', (e) => {
+                e.preventDefault();
+                const menu = dropdown.querySelector('.dropdown-menu');
+                if (menu) {
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!dropdown.contains(e.target)) {
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    if (menu) {
+                        menu.style.display = 'none';
+                    }
+                }
+            });
+        }
+    }
+});
+
 // Initialize on load
 const initialPage = window.location.hash.slice(1) || 'home';
 const [page, scroll] = initialPage.split('#');
