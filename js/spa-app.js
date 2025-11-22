@@ -11,7 +11,7 @@ const pages = {
                 </div>
                 <div class="hero-info">
                     <h1 class="hero-title">王俊儒</h1>
-                    <p class="hero-description">1997年生于贵州，苗族人</p>
+                    <p class="hero-description">1997年生于贵州苗族人</p>
                     
                     <div class="hero-timeline">
                         <div class="timeline-item">
