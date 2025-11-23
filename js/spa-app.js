@@ -152,15 +152,12 @@ const pages = {
     music: `
         <section class="music-section">
             <div class="container">
-                <h1 class="section-title">音乐</h1>
-                
                 <div class="album">
                     <div class="album-cover">
                         <img src="music/三个时间的坐标/407E76AB-74EC-4032-962B-8CF2C4480B67_1_105_c.jpeg" alt="三个时间的坐标">
                     </div>
                     <div class="album-info">
                         <h2 class="album-title">三个时间的坐标</h2>
-                        <p class="album-artist">王俊儒</p>
                         <div class="album-tracklist">
                             <div class="track" data-index="0">
                                 <span class="track-number">01</span>
