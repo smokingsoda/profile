@@ -1,11 +1,5 @@
 name = "profile"
 compatibility_date = "2025-11-23"
 
-[site]
-bucket = "."
-
-[build]
-command = ""
-cwd = "."
-watch_dirs = []
-
+[assets]
+directory = "."
