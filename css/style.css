@@ -382,8 +382,8 @@ body[data-lang="en"] .footer {
 
 .poem-meta {
     position: absolute;
-    top: 6rem;
-    right: 3rem;
+    top: clamp(4rem, 8vh, 8rem);
+    right: clamp(2rem, 3vw, 5rem);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -398,7 +398,7 @@ body[data-lang="en"] .footer {
 }
 
 .poem-title {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 1.2vw, 1.8rem);
     color: var(--accent);
     font-weight: 500;
     letter-spacing: 0.2em;
@@ -411,7 +411,7 @@ body[data-lang="en"] .footer {
 }
 
 .poem-place {
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 1vw, 1.5rem);
     color: var(--accent);
     letter-spacing: 0.2em;
 }
@@ -423,7 +423,7 @@ body[data-lang="en"] .footer {
 }
 
 .poem-time {
-    font-size: 0.9rem;
+    font-size: clamp(0.8rem, 0.8vw, 1.1rem);
     color: var(--text-secondary);
     letter-spacing: 0.1em;
 }
@@ -432,13 +432,13 @@ body[data-lang="en"] .footer {
 .poem-with-image {
     display: flex;
     align-items: center;
-    gap: 4rem;
-    max-width: 1200px;
+    gap: clamp(2rem, 4vw, 6rem);
+    max-width: 90vw;
     margin: 0 auto;
 }
 
 .poem-image {
-    width: 500px;
+    width: clamp(300px, 30vw, 600px);
     flex-shrink: 0;
     perspective: 1000px;
     cursor: pointer;
@@ -618,22 +618,26 @@ body[data-lang="en"] .footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-width: 400px;
+    min-width: clamp(300px, 25vw, 500px);
     flex-shrink: 0;
 }
 
 .poem-text {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 2vw, 3rem);
     font-weight: 500;
     letter-spacing: 0.4em;
-    line-height: 1;
+    line-height: 1.5;
     color: #000000;
     font-family: 'Noto Serif SC', serif;
     position: relative;
     z-index: 1;
-    max-height: 70vh;
+    /* 严格限制每列7个字：字体大小 * 7个字 * 行高 */
+    height: calc(clamp(1.8rem, 2vw, 3rem) * 7 * 1.5);
+    max-height: calc(clamp(1.8rem, 2vw, 3rem) * 7 * 1.5);
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 /* 每个字的样式 */
