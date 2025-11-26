@@ -361,6 +361,11 @@ function initPageFeatures(pageName) {
         // 给诗文的每个字添加交互效果
         const poemTexts = document.querySelectorAll('.poem-text');
         const isDesktop = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const isMobile = !isDesktop;
+        
+        // 移动端陀螺仪状态
+        let gyroEnabled = false;
+        let gyroPermissionGranted = false;
         
         poemTexts.forEach(poemText => {
             // 检查是否已经处理过（避免重复）
@@ -376,7 +381,7 @@ function initPageFeatures(pageName) {
             
             poemText.innerHTML = wrappedText;
             
-            // 仅在桌面端添加 3D 效果
+            // 桌面端：鼠标效果
             if (isDesktop && window.innerWidth > 768) {
                 const chars = poemText.querySelectorAll('.char');
                 
@@ -436,6 +441,153 @@ function initPageFeatures(pageName) {
                         char.addEventListener('mouseleave', onMouseLeave);
                     });
                 });
+            }
+            
+            // 移动端：陀螺仪 + 触摸效果
+            if (isMobile) {
+                const chars = poemText.querySelectorAll('.char');
+                
+                // 尝试请求陀螺仪权限（iOS 13+）
+                const requestGyroPermission = async () => {
+                    if (typeof DeviceOrientationEvent !== 'undefined' && 
+                        typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        try {
+                            const permission = await DeviceOrientationEvent.requestPermission();
+                            gyroPermissionGranted = permission === 'granted';
+                            return gyroPermissionGranted;
+                        } catch (error) {
+                            console.log('陀螺仪权限请求失败:', error);
+                            return false;
+                        }
+                    } else {
+                        // Android 或旧版 iOS，直接支持
+                        gyroPermissionGranted = true;
+                        return true;
+                    }
+                };
+                
+                // 陀螺仪效果
+                const handleOrientation = (event) => {
+                    if (!gyroEnabled) return;
+                    
+                    const gamma = event.gamma || 0;  // 左右倾斜 (-90 到 90)
+                    const beta = event.beta || 0;    // 前后倾斜 (-180 到 180)
+                    
+                    chars.forEach(char => {
+                        // 限制角度范围，避免过度旋转
+                        const rotateY = Math.max(-15, Math.min(15, gamma / 3));
+                        const rotateX = Math.max(-15, Math.min(15, -beta / 6));
+                        
+                        // 根据倾斜计算阴影
+                        const shadowX = gamma / 15;
+                        const shadowY = beta / 30;
+                        
+                        const shadows = [
+                            `${shadowX * 0.5}px ${shadowY * 0.5}px 1px rgba(0, 0, 0, 0.3)`,
+                            `${shadowX * 1}px ${shadowY * 1}px 2px rgba(0, 0, 0, 0.2)`,
+                            `${shadowX * 1.5}px ${shadowY * 1.5}px 4px rgba(0, 0, 0, 0.1)`
+                        ];
+                        
+                        char.style.textShadow = shadows.join(', ');
+                        char.style.transform = `
+                            perspective(1500px)
+                            rotateX(${rotateX}deg)
+                            rotateY(${rotateY}deg)
+                            scale(1.2)
+                            translateZ(20px)
+                        `;
+                    });
+                };
+                
+                // 触摸效果（陀螺仪备用方案）
+                let touchActive = false;
+                const handleTouch = (event) => {
+                    if (gyroEnabled) return; // 如果陀螺仪开启，不使用触摸
+                    
+                    const touch = event.touches[0];
+                    if (!touch) return;
+                    
+                    const rect = poemText.getBoundingClientRect();
+                    const x = touch.clientX - rect.left;
+                    const y = touch.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    chars.forEach(char => {
+                        const charRect = char.getBoundingClientRect();
+                        const charX = charRect.left + charRect.width / 2 - rect.left;
+                        const charY = charRect.top + charRect.height / 2 - rect.top;
+                        
+                        const distance = Math.sqrt(Math.pow(x - charX, 2) + Math.pow(y - charY, 2));
+                        const maxDistance = Math.max(rect.width, rect.height) / 2;
+                        const influence = Math.max(0, 1 - distance / maxDistance);
+                        
+                        if (influence > 0) {
+                            const offsetX = (x - charX) / charRect.width;
+                            const offsetY = (y - charY) / charRect.height;
+                            
+                            const rotateY = -offsetX * 10 * influence;
+                            const rotateX = offsetY * 10 * influence;
+                            
+                            const shadowX = -offsetX * 1.5 * influence;
+                            const shadowY = -offsetY * 1.5 * influence;
+                            
+                            const shadows = [
+                                `${shadowX * 0.5}px ${shadowY * 0.5}px 1px rgba(0, 0, 0, ${0.3 * influence})`,
+                                `${shadowX * 1}px ${shadowY * 1}px 2px rgba(0, 0, 0, ${0.2 * influence})`,
+                                `${shadowX * 1.5}px ${shadowY * 1.5}px 4px rgba(0, 0, 0, ${0.1 * influence})`
+                            ];
+                            
+                            char.style.textShadow = shadows.join(', ');
+                            char.style.transform = `
+                                perspective(1500px)
+                                rotateX(${rotateX}deg)
+                                rotateY(${rotateY}deg)
+                                scale(${1 + influence * 0.2})
+                                translateZ(${20 * influence}px)
+                            `;
+                        } else {
+                            char.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) scale(1) translateZ(0)';
+                            char.style.textShadow = '';
+                        }
+                    });
+                };
+                
+                const handleTouchEnd = () => {
+                    if (gyroEnabled) return;
+                    
+                    chars.forEach(char => {
+                        char.style.transform = 'perspective(1500px) rotateX(0) rotateY(0) scale(1) translateZ(0)';
+                        char.style.textShadow = '';
+                    });
+                };
+                
+                // 首次触摸时请求陀螺仪权限
+                const initMobileInteraction = async (event) => {
+                    event.preventDefault();
+                    const granted = await requestGyroPermission();
+                    
+                    if (granted) {
+                        gyroEnabled = true;
+                        window.addEventListener('deviceorientation', handleOrientation, true);
+                        console.log('✅ 陀螺仪模式已启用');
+                    } else {
+                        console.log('📱 使用触摸模式');
+                    }
+                    
+                    // 移除初始化监听器
+                    poemText.removeEventListener('touchstart', initMobileInteraction);
+                    
+                    // 添加触摸事件（作为备用）
+                    if (!gyroEnabled) {
+                        poemText.addEventListener('touchmove', handleTouch, { passive: true });
+                        poemText.addEventListener('touchend', handleTouchEnd);
+                    }
+                };
+                
+                // 首次触摸时初始化
+                poemText.addEventListener('touchstart', initMobileInteraction, { once: true });
             }
         });
     }

@@ -1333,7 +1333,7 @@ body[data-lang="en"] .footer {
     }
 
     .poem-text {
-        font-size: 2rem;
+        font-size: 2.2rem;
         letter-spacing: 0.35em;
     }
 
@@ -1441,14 +1441,15 @@ body[data-lang="en"] .footer {
     }
 
     .poem-text {
-        font-size: 1.8rem;
+        font-size: 2rem;
         letter-spacing: 0.3em;
     }
     
-    /* 移动端简化字的效果 */
+    /* 移动端保持字的交互效果 */
     .poem-text .char {
         text-shadow: 
             0.5px 0.5px 1px rgba(0, 0, 0, 0.06);
+        cursor: pointer;
     }
 
     .poem-number {
@@ -1525,7 +1526,7 @@ body[data-lang="en"] .footer {
     }
 
     .poem-text {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         letter-spacing: 0.25em;
         max-height: 75vh;
     }
@@ -1733,10 +1734,10 @@ body[data-lang="en"] .footer {
     }
 
     .poem-text {
-        font-size: 1.3rem;
+        font-size: 1.5rem;
         letter-spacing: 0.15em;
-        height: calc(1.3rem * 7 * 1.5); /* 7 characters per column */
-        max-height: calc(1.3rem * 7 * 1.5);
+        height: calc(1.5rem * 7 * 1.5); /* 7 characters per column */
+        max-height: calc(1.5rem * 7 * 1.5);
         padding: 0 1rem;
         line-height: 1.5;
         /* Fixed 7 characters per column */
@@ -1746,10 +1747,9 @@ body[data-lang="en"] .footer {
         overflow-y: hidden;
     }
     
-    /* 移动端禁用字的 3D 效果 */
+    /* 移动端保持字的交互效果 */
     .poem-text .char {
-        transform: none !important;
-        cursor: default;
+        cursor: pointer;
         text-shadow: 
             0.5px 0.5px 1px rgba(0, 0, 0, 0.05);
     }
@@ -1990,18 +1990,18 @@ body[data-lang="en"] .footer {
     }
 
     .poem-text {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
         letter-spacing: 0.12em;
         line-height: 1.4;
-        height: calc(1.1rem * 7 * 1.4); /* 7 characters per column */
-        max-height: calc(1.1rem * 7 * 1.4);
+        height: calc(1.3rem * 7 * 1.4); /* 7 characters per column */
+        max-height: calc(1.3rem * 7 * 1.4);
         overflow-x: auto;
         overflow-y: hidden;
     }
     
-    /* 极小屏幕禁用字的 3D 效果 */
+    /* 极小屏幕保持字的交互效果 */
     .poem-text .char {
-        transform: none !important;
+        cursor: pointer;
     }
 
     .album-cover {
@@ -2072,13 +2072,9 @@ body[data-lang="en"] .footer {
         opacity: 0.9;
     }
     
-    /* 禁用字的悬停效果 */
+    /* 移动端保持字的交互效果 */
     .poem-text .char {
-        cursor: default;
-    }
-    
-    .poem-text .char:hover {
-        transform: none;
+        cursor: pointer;
     }
 }
 
