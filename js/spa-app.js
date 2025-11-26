@@ -311,6 +311,12 @@ function closeLightbox() {
 }
 
 function openLightbox(imageSrc) {
+    // 检查图片源是否有效
+    if (!imageSrc || imageSrc === 'undefined') {
+        console.warn('Invalid image source for lightbox');
+        return;
+    }
+    
     if (lightbox && lightboxImg) {
         lightbox.style.display = 'flex';
         lightboxImg.src = imageSrc;
@@ -346,7 +352,9 @@ function initPageFeatures(pageName) {
         poemImages.forEach(img => {
             img.style.cursor = 'pointer';
             img.addEventListener('click', () => {
-                openLightbox(img.src);
+                if (img.src && img.complete) {
+                    openLightbox(img.src);
+                }
             });
             
             // 添加 3D 倾斜效果 - 鼠标跟随（仅桌面端）
