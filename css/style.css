@@ -30,6 +30,53 @@ body {
     overflow-x: hidden;
 }
 
+/* 英文模式字体 - Cormorant Garamond */
+body[data-lang="en"] {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    letter-spacing: 0.01em;
+}
+
+body[data-lang="en"] .hero-title {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+
+body[data-lang="en"] .hero-description,
+body[data-lang="en"] .timeline-content {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+}
+
+body[data-lang="en"] .nav-menu a,
+body[data-lang="en"] .nav-brand {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+}
+
+/* 英文模式诗标题字体 */
+body[data-lang="en"] .poem-title,
+body[data-lang="en"] .poem-place,
+body[data-lang="en"] .poem-time {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+}
+
+/* 英文模式音乐页面字体 */
+body[data-lang="en"] .album-title,
+body[data-lang="en"] .track-title,
+body[data-lang="en"] .player-title,
+body[data-lang="en"] .player-album {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+}
+
+/* 英文模式页脚字体 */
+body[data-lang="en"] .footer {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-weight: 300;
+}
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -159,6 +206,27 @@ body {
 
 .dropdown-menu a::after {
     display: none;
+}
+
+/* 语言切换按钮 */
+.lang-toggle {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-primary);
+    padding: 0.3rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 300;
+    transition: var(--transition);
+    font-family: 'Cormorant Garamond', 'Noto Sans SC', Georgia, serif;
+    letter-spacing: 0.05em;
+}
+
+.lang-toggle:hover {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
 }
 
 /* ===== Hero Section ===== */
@@ -305,6 +373,11 @@ body {
     z-index: 10;
 }
 
+/* 英文模式下减小行间距 */
+.poem-meta[data-lang="en"] {
+    gap: 0.2rem;
+}
+
 .poem-title {
     font-size: 1.5rem;
     color: var(--accent);
@@ -312,10 +385,22 @@ body {
     letter-spacing: 0.2em;
 }
 
+/* 英文诗标题样式 - 保持大小，只减小间距 */
+.poem-title[data-lang="en"] {
+    letter-spacing: 0.02em;
+    font-size: 1.3rem;
+}
+
 .poem-place {
     font-size: 1.2rem;
     color: var(--accent);
     letter-spacing: 0.2em;
+}
+
+/* 英文地点样式 - 稍小一些 */
+.poem-place[data-lang="en"] {
+    font-size: 1rem;
+    letter-spacing: 0.05em;
 }
 
 .poem-time {
@@ -336,21 +421,32 @@ body {
 .poem-image {
     width: 500px;
     flex-shrink: 0;
+    perspective: 1000px;
+    cursor: pointer;
 }
 
 .poem-image img {
     width: 100%;
     height: auto;
     display: block;
-    transition: var(--transition);
+    transition: all 0.1s ease-out;
     cursor: pointer;
+    /* 简洁的阴影效果 */
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.15),
+        0 5px 15px rgba(0, 0, 0, 0.1);
+    /* 保留 3D 变换能力 */
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .poem-image img:hover {
-    opacity: 0.9;
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.2),
+        0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Lightbox 图片弹窗 */
+/* Lightbox 图片弹窗 - 画廊风格 */
 .lightbox {
     display: none;
     position: fixed;
@@ -359,18 +455,44 @@ body {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
-    animation: fadeIn 0.3s ease-out;
+    /* 深色美术馆氛围 */
+    background: 
+        radial-gradient(circle at 50% 40%, 
+            rgba(40, 40, 40, 0.95) 0%, 
+            rgba(20, 20, 20, 0.98) 50%,
+            rgba(10, 10, 10, 0.99) 100%
+        );
+    animation: fadeIn 0.4s ease-out;
     justify-content: center;
     align-items: center;
 }
 
 .lightbox-content {
     display: block;
-    max-width: 90%;
-    max-height: 90vh;
+    max-width: 85%;
+    max-height: 85vh;
     object-fit: contain;
-    animation: zoomIn 0.3s ease-out;
+    animation: galleryZoomIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* 简洁的展示效果 */
+    box-shadow: 
+        0 25px 80px rgba(0, 0, 0, 0.6),
+        0 10px 40px rgba(0, 0, 0, 0.4);
+    /* 顶部聚光灯效果 */
+    filter: drop-shadow(0 -15px 40px rgba(255, 248, 220, 0.15));
+}
+
+@keyframes galleryZoomIn {
+    0% {
+        transform: scale(0.85) translateY(20px);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
 .lightbox-close {
@@ -493,6 +615,30 @@ body {
     position: relative;
     z-index: 1;
     max-height: 70vh;
+}
+
+/* 每个字的样式 */
+.poem-text .char {
+    display: inline-block;
+    transition: all 0.1s ease-out;
+    cursor: pointer;
+    perspective: 1500px;
+    transform-style: preserve-3d;
+    will-change: transform;
+    position: relative;
+    /* 精致的光源投射效果 - 轻微的模糊 */
+    text-shadow: 
+        0.5px 0.5px 1px rgba(0, 0, 0, 0.08),
+        1px 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.poem-text .char:hover {
+    /* 悬停时的默认光源效果（会被 JS 动态覆盖）*/
+    text-shadow: 
+        1px 1px 1px rgba(0, 0, 0, 0.35),
+        2px 2px 2px rgba(0, 0, 0, 0.22),
+        3px 3px 4px rgba(0, 0, 0, 0.15);
+    color: #0a0a0a;
 }
 
 /* ===== Resume Section ===== */
@@ -1151,6 +1297,15 @@ body {
     .poem-image {
         width: 100%;
         max-width: 500px;
+        /* 移动端禁用 3D 效果 */
+        perspective: none;
+    }
+    
+    .poem-image img {
+        /* 移动端简化阴影 */
+        box-shadow: 
+            0 8px 20px rgba(0, 0, 0, 0.12),
+            0 4px 10px rgba(0, 0, 0, 0.08);
     }
 
     .stele-container {
@@ -1166,6 +1321,12 @@ body {
     .poem-meta {
         top: 2rem;
         right: 2rem;
+    }
+    
+    /* 平板端简化字的效果 */
+    .poem-text .char {
+        text-shadow: 
+            1px 1px 2px rgba(0, 0, 0, 0.06);
     }
 }
 
@@ -1248,6 +1409,12 @@ body {
     .nav-menu {
         gap: 1.5rem;
     }
+    
+    .lang-toggle {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.6rem;
+        font-weight: 400;
+    }
 
     .poem-stele {
         padding: 6rem 1.5rem;
@@ -1260,6 +1427,12 @@ body {
     .poem-text {
         font-size: 1.8rem;
         letter-spacing: 0.3em;
+    }
+    
+    /* 移动端简化字的效果 */
+    .poem-text .char {
+        text-shadow: 
+            0.5px 0.5px 1px rgba(0, 0, 0, 0.06);
     }
 
     .poem-number {
@@ -1393,11 +1566,19 @@ body {
 
     .nav-menu {
         gap: 0.8rem;
+        align-items: center;
     }
 
     .nav-menu a {
         font-size: 0.85rem;
         padding: 0.3rem 0.5rem;
+    }
+    
+    .lang-toggle {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.5rem;
+        font-weight: 400;
+        letter-spacing: 0.03em;
     }
 
     /* Dropdown on mobile - click to show */
@@ -1484,10 +1665,25 @@ body {
         font-size: 0.9rem;
         z-index: 10;
     }
+    
+    /* 英文模式下进一步减小行间距 */
+    .poem-meta[data-lang="en"] {
+        gap: 0.15rem;
+    }
 
     .poem-title {
         font-size: 1rem;
         font-weight: 500;
+    }
+    
+    .poem-title[data-lang="en"] {
+        font-size: 1rem;
+        letter-spacing: 0.01em;
+    }
+    
+    .poem-place[data-lang="en"] {
+        font-size: 0.85rem;
+        letter-spacing: 0.03em;
     }
 
     .poem-place,
@@ -1503,6 +1699,13 @@ body {
     .poem-image {
         width: 100%;
         max-width: 100%;
+        /* 移动端禁用 3D 效果 */
+        perspective: none;
+    }
+    
+    .poem-image img {
+        /* 移动端禁用变换 */
+        transform: none !important;
     }
 
     .stele-container {
@@ -1524,6 +1727,14 @@ body {
         text-orientation: upright;
         overflow-x: auto;
         overflow-y: hidden;
+    }
+    
+    /* 移动端禁用字的 3D 效果 */
+    .poem-text .char {
+        transform: none !important;
+        cursor: default;
+        text-shadow: 
+            0.5px 0.5px 1px rgba(0, 0, 0, 0.05);
     }
 
     /* Music Section */
@@ -1736,9 +1947,24 @@ body {
         gap: 0.25rem;
         font-size: 0.85rem;
     }
+    
+    /* 英文模式下最小行间距 */
+    .poem-meta[data-lang="en"] {
+        gap: 0.1rem;
+    }
 
     .poem-title {
         font-size: 0.9rem;
+    }
+    
+    .poem-title[data-lang="en"] {
+        font-size: 0.9rem;
+        letter-spacing: 0em;
+    }
+    
+    .poem-place[data-lang="en"] {
+        font-size: 0.8rem;
+        letter-spacing: 0.02em;
     }
 
     .poem-place,
@@ -1754,6 +1980,11 @@ body {
         max-height: calc(1.1rem * 7 * 1.4);
         overflow-x: auto;
         overflow-y: hidden;
+    }
+    
+    /* 极小屏幕禁用字的 3D 效果 */
+    .poem-text .char {
+        transform: none !important;
     }
 
     .album-cover {
@@ -1822,6 +2053,15 @@ body {
 
     .poem-image img:active {
         opacity: 0.9;
+    }
+    
+    /* 禁用字的悬停效果 */
+    .poem-text .char {
+        cursor: default;
+    }
+    
+    .poem-text .char:hover {
+        transform: none;
     }
 }
 
