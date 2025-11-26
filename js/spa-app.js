@@ -45,9 +45,9 @@ const translations = {
         'poem-title': 'Poem ',
         'footer': '© 2025 Junru Wang. All rights reserved.',
         'album-title': 'Three Coordinates of Time',
-        'track1': 'Flow of Spring',
-        'track2': 'Blue of Summer',
-        'track3': 'Clouds of Winter',
+        'track1': 'Spring Flows',
+        'track2': 'Summer Blues',
+        'track3': 'Winter Clouds',
         'school1': 'Duyun No.2 Primary School',
         'school2': 'Duyun No.3 Middle School',
         'school3': 'Duyun No.1 High School',
@@ -86,40 +86,9 @@ const pages = {
     home: () => `
         <section class="hero">
             <div class="hero-content">
-                <div class="hero-photo-container">
-                    <img src="images/profile.jpg" alt="王俊儒" class="hero-photo">
-                </div>
-                <div class="hero-info">
-                    <h1 class="hero-title">${t('name')}</h1>
-                    <p class="hero-description">${t('intro')}</p>
-                    
-                    <div class="hero-timeline">
-                        <div class="timeline-item">
-                            <span class="timeline-year">2004-2010</span>
-                            <span class="timeline-content">${t('school1')}</span>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2010-2013</span>
-                            <span class="timeline-content">${t('school2')}</span>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2013-2016</span>
-                            <span class="timeline-content">${t('school3')}</span>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2016-2020</span>
-                            <span class="timeline-content">${t('school4')}</span>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2020-2023</span>
-                            <span class="timeline-content">${t('school5')}</span>
-                        </div>
-                        <div class="timeline-item">
-                            <span class="timeline-year">2024-2025</span>
-                            <span class="timeline-content">${t('school6')}</span>
-                        </div>
-                    </div>
-                </div>
+                <img src="images/profile.jpg" alt="王俊儒" class="hero-photo-simple">
+                <h1 class="hero-title">${t('name')}</h1>
+                <p class="hero-description">${t('intro')}</p>
             </div>
         </section>
         <footer class="footer">
