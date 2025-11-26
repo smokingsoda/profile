@@ -620,6 +620,8 @@ body[data-lang="en"] .footer {
     align-items: center;
     min-width: clamp(300px, 25vw, 500px);
     flex-shrink: 0;
+    overflow: visible;
+    padding: 3rem 1rem;
 }
 
 .poem-text {
@@ -627,7 +629,7 @@ body[data-lang="en"] .footer {
     text-orientation: upright;
     font-size: clamp(1.8rem, 2vw, 3rem);
     font-weight: 500;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.15em;
     line-height: 1.5;
     color: #000000;
     font-family: 'Noto Serif SC', serif;
@@ -638,6 +640,9 @@ body[data-lang="en"] .footer {
     max-height: calc(clamp(1.8rem, 2vw, 3rem) * 7 * 1.5);
     overflow-x: auto;
     overflow-y: hidden;
+    /* 为突出的字符留出空间，防止被裁剪 */
+    padding: 3rem 2rem;
+    margin: -3rem -2rem;
 }
 
 /* 每个字的样式 */
@@ -1338,7 +1343,7 @@ body[data-lang="en"] .footer {
 
     .poem-text {
         font-size: 2.2rem;
-        letter-spacing: 0.35em;
+        letter-spacing: 0.15em;
     }
 
     .poem-meta {
@@ -1446,7 +1451,7 @@ body[data-lang="en"] .footer {
 
     .poem-text {
         font-size: 2rem;
-        letter-spacing: 0.3em;
+        letter-spacing: 0.15em;
     }
     
     /* 移动端保持字的交互效果 */
@@ -1531,7 +1536,7 @@ body[data-lang="en"] .footer {
 
     .poem-text {
         font-size: 1.8rem;
-        letter-spacing: 0.25em;
+        letter-spacing: 0.15em;
         max-height: 75vh;
     }
 
