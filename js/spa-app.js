@@ -7,13 +7,14 @@ let currentLang = localStorage.getItem('language') || 'zh';
 const translations = {
     zh: {
         'nav-home': '首页',
-        'nav-poetry': '诗',
+        'nav-poetry': '诗&词',
         'nav-poem1': '其一',
         'nav-poem2': '其二',
         'nav-poem3': '其三',
         'nav-poem4': '其四',
         'nav-poem5': '其五',
         'nav-poem6': '其六',
+        'nav-poem7': '临江仙',
         'nav-music': '音乐',
         'name': '王俊儒',
         'intro': '1997年生，贵州苗族人',
@@ -32,13 +33,14 @@ const translations = {
     },
     en: {
         'nav-home': 'Home',
-        'nav-poetry': 'Poetry',
+        'nav-poetry': 'Poetry & Ci',
         'nav-poem1': 'Poem I',
         'nav-poem2': 'Poem II',
         'nav-poem3': 'Poem III',
         'nav-poem4': 'Poem IV',
         'nav-poem5': 'Poem V',
         'nav-poem6': 'Poem VI',
+        'nav-poem7': 'Linjiang Xian',
         'nav-music': 'Music',
         'name': 'Junru Wang',
         'intro': 'Born in 1997, Miao ethnicity, Guizhou',
@@ -59,14 +61,14 @@ const translations = {
 
 // 地点翻译
 const placeTranslations = {
-    zh: { '长沙': '长沙', '都匀': '都匀', '伦敦': '伦敦' },
-    en: { '长沙': 'Changsha', '都匀': 'Duyun', '伦敦': 'London' }
+    zh: { '长沙': '长沙', '都匀': '都匀', '伦敦': '伦敦', '大理': '大理' },
+    en: { '长沙': 'Changsha', '都匀': 'Duyun', '伦敦': 'London', '大理': 'Dali' }
 };
 
 // 时间翻译
 const timeTranslations = {
-    zh: { '2017年夏': '2017年夏', '2024年夏': '2024年夏', '2024年秋': '2024年秋', '2024年冬': '2024年冬', '2025年秋': '2025年秋' },
-    en: { '2017年夏': 'Sum. 2017', '2024年夏': 'Sum. 2024', '2024年秋': 'Aut. 2024', '2024年冬': 'Win. 2024', '2025年秋': 'Aut. 2025' }
+    zh: { '2017年夏': '2017年夏', '2024年夏': '2024年夏', '2024年秋': '2024年秋', '2024年冬': '2024年冬', '2025年秋': '2025年秋', '2025年冬': '2025年冬' },
+    en: { '2017年夏': 'Sum. 2017', '2024年夏': 'Sum. 2024', '2024年秋': 'Aut. 2024', '2024年冬': 'Win. 2024', '2025年秋': 'Aut. 2025', '2025年冬': 'Win. 2025' }
 };
 
 function t(key) {
@@ -192,6 +194,22 @@ const pages = {
                     </div>
                     <div class="stele-container">
                         <div class="poem-text">野徑荒煙合蒼葭沒古丘鐘聲催晚景雁影掠空樓隨歲扁舟遠臨江寒月幽夜闌風更急吹夢與雲遊</div>
+                    </div>
+                </div>
+            </article>
+
+            <article class="poem-stele" id="poem-7">
+                <div class="poem-meta" data-lang="${currentLang}">
+                    <span class="poem-title" data-lang="${currentLang}">${currentLang === 'zh' ? '临江仙' : 'Linjiang Xian'}</span>
+                    <span class="poem-place" data-lang="${currentLang}">${translatePlace('大理')}</span>
+                    <span class="poem-time" data-lang="${currentLang}">${translateTime('2025年冬')}</span>
+                </div>
+                <div class="poem-with-image">
+                    <div class="poem-image">
+                        <img src="images/临江仙.JPG" alt="大理" class="poem-img">
+                    </div>
+                    <div class="stele-container">
+                        <div class="poem-text">雪綫輕勾蒼嶺色遙連洱海千重長風獵獵上雲峰水杉臨冷畔鷗鷺點晴空且把寒薪燃熱焰亂紅飛入星叢火中明滅舊時容煙消林野闊新月挂天東</div>
                     </div>
                 </div>
             </article>
