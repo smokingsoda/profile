@@ -1,0 +1,364 @@
+.poetry-section {
+  background: var(--primary-bg);
+}
+
+.poem-stele {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rem 4rem 8rem;
+  position: relative;
+  background: #fafafa;
+}
+
+.poem-stele:nth-child(odd) {
+  background: #ffffff;
+}
+
+.poem-stele:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.poem-meta {
+  position: absolute;
+  top: 6rem;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  font-family: 'Noto Serif SC', serif;
+  z-index: 10;
+}
+
+.poem-meta[data-lang='en'] {
+  gap: 0.2rem;
+}
+
+.poem-title {
+  font-size: 1.5rem;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: 0.2em;
+}
+
+.poem-title[data-lang='en'] {
+  letter-spacing: 0.02em;
+  font-size: 1.3rem;
+}
+
+.poem-place {
+  font-size: 1.2rem;
+  color: var(--accent);
+  letter-spacing: 0.2em;
+}
+
+.poem-place[data-lang='en'] {
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.poem-time {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.1em;
+}
+
+/* Poem + Image layout */
+.poem-with-image {
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.poem-image {
+  width: 500px;
+  flex-shrink: 0;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.poem-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: all 0.1s ease-out;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.poem-image img:hover {
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Stele */
+.stele-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 400px;
+  flex-shrink: 0;
+}
+
+.poem-text {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 0.4em;
+  line-height: 1;
+  color: #000000;
+  font-family: 'Noto Serif SC', serif;
+  position: relative;
+  z-index: 1;
+  max-height: 70vh;
+}
+
+.char {
+  display: inline-block;
+  /* No transition here — JS drives this at mousemove frequency.
+     A CSS transition here fights rapid JS updates and causes stutter in Safari. */
+  cursor: pointer;
+  perspective: 1500px;
+  transform-style: preserve-3d;
+  will-change: transform;
+  position: relative;
+  text-shadow:
+    0.5px 0.5px 1px rgba(0, 0, 0, 0.08),
+    1px 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.char:hover {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.35), 2px 2px 2px rgba(0, 0, 0, 0.22),
+    3px 3px 4px rgba(0, 0, 0, 0.15);
+  color: #0a0a0a;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .poem-stele {
+    padding: 6rem 2rem;
+  }
+
+  .poem-with-image {
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .poem-image {
+    width: 100%;
+    max-width: 500px;
+    perspective: none;
+  }
+
+  .poem-image img {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .stele-container {
+    min-width: auto;
+    width: 100%;
+  }
+
+  .poem-text {
+    font-size: 2.2rem;
+    letter-spacing: 0.35em;
+  }
+
+  .poem-meta {
+    top: 2rem;
+    right: 2rem;
+  }
+
+  .char {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.06);
+  }
+}
+
+@media (max-width: 768px) {
+  .poem-stele {
+    padding: 6rem 1.5rem;
+  }
+
+  .poem-with-image {
+    gap: 2rem;
+  }
+
+  .poem-text {
+    font-size: 2rem;
+    letter-spacing: 0.3em;
+  }
+
+  .char {
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .poetry-section {
+    padding: 6.5rem 0.8rem 3rem;
+  }
+
+  .poem-stele {
+    margin-bottom: 3rem;
+    position: relative;
+    padding-top: 5rem;
+  }
+
+  .poem-meta {
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.3rem;
+    font-size: 0.9rem;
+    z-index: 10;
+  }
+
+  .poem-meta[data-lang='en'] {
+    gap: 0.15rem;
+  }
+
+  .poem-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .poem-title[data-lang='en'] {
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+  }
+
+  .poem-place[data-lang='en'] {
+    font-size: 0.85rem;
+    letter-spacing: 0.03em;
+  }
+
+  .poem-place,
+  .poem-time {
+    font-size: 0.75rem;
+  }
+
+  .poem-with-image {
+    gap: 1.5rem;
+    flex-direction: column;
+  }
+
+  .poem-image {
+    width: 100%;
+    max-width: 100%;
+    perspective: none;
+  }
+
+  .poem-image img {
+    transform: none !important;
+  }
+
+  .stele-container {
+    min-width: auto;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .poem-text {
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    height: calc(1.5rem * 7 * 1.5);
+    max-height: calc(1.5rem * 7 * 1.5);
+    padding: 0 1rem;
+    line-height: 1.5;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .char {
+    cursor: pointer;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.05);
+  }
+}
+
+@media (max-width: 360px) {
+  .poem-stele {
+    padding-top: 4.5rem;
+  }
+
+  .poem-meta {
+    top: 0;
+    right: 0.8rem;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+  }
+
+  .poem-meta[data-lang='en'] {
+    gap: 0.1rem;
+  }
+
+  .poem-title {
+    font-size: 0.9rem;
+  }
+
+  .poem-title[data-lang='en'] {
+    font-size: 0.9rem;
+    letter-spacing: 0em;
+  }
+
+  .poem-place[data-lang='en'] {
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+  }
+
+  .poem-place,
+  .poem-time {
+    font-size: 0.7rem;
+  }
+
+  .poem-text {
+    font-size: 1.3rem;
+    letter-spacing: 0.12em;
+    line-height: 1.4;
+    height: calc(1.3rem * 7 * 1.4);
+    max-height: calc(1.3rem * 7 * 1.4);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .poetry-section {
+    padding: 4rem 1rem 2rem;
+  }
+
+  .poem-text {
+    max-height: 50vh;
+  }
+}
+
+/* Touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .poem-image img {
+    cursor: default;
+  }
+
+  .poem-image img:hover {
+    transform: none;
+  }
+
+  .poem-image img:active {
+    opacity: 0.9;
+  }
+
+  .char {
+    cursor: pointer;
+  }
+}
