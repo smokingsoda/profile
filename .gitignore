@@ -1,12 +1,30 @@
-# macOS
+# ===== Dependencies =====
+node_modules/
+
+# ===== Build output =====
+dist/
+
+# ===== Environment & secrets =====
+.env
+.env.local
+.env.*.local
+
+# ===== Deployment configs (keep templates, ignore local overrides) =====
+# Cloudflare Workers / Pages
+.wrangler/
+wrangler.toml.local
+
+# Vercel
+.vercel/
+
+# Netlify
+.netlify/
+
+# ===== macOS =====
 .DS_Store
 .AppleDouble
 .LSOverride
-
-# Thumbnails
 ._*
-
-# Files that might appear in the root of a volume
 .DocumentRevisions-V100
 .fseventsd
 .Spotlight-V100
@@ -14,24 +32,19 @@
 .Trashes
 .VolumeIcon.ico
 .com.apple.timemachine.donotpresent
-
-# Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
 
-# Editor directories and files
-.vscode
-.idea
+# ===== Editor =====
+.vscode/
+.idea/
 *.swp
 *.swo
 *~
 
-# Logs
+# ===== Logs & temp =====
 *.log
-
-# Temporary files
 *.tmp
-
